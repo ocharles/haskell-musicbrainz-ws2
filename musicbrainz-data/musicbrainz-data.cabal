@@ -1,0 +1,30 @@
+Name: musicbrainz-data
+Version: 0.1
+Cabal-version: >= 1.8
+License: MIT
+Author: Oliver Charles
+Build-Type: Simple
+
+Library
+  Hs-Source-Dirs: src
+  Build-Depends:
+    base,
+    blaze-builder,
+    postgresql-simple,
+    snaplet-postgresql-simple,
+    text,
+    uuid
+  Exposed-Modules:
+    MusicBrainz.Data.Country
+    MusicBrainz.Data.GetByRef
+    MusicBrainz.Data.Language
+    MusicBrainz.Data.Release
+    MusicBrainz.Data.ReleaseStatus
+    MusicBrainz.Data.Script
+    MusicBrainz.Types
+  Other-modules:
+    MusicBrainz.Data.Mapping
+    MusicBrainz.Internal
+  ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+               -fno-warn-orphans -fno-warn-unused-do-bind -Werror
+

@@ -1,0 +1,41 @@
+Name: musicbrainz-ws2
+Version: 0.1
+Cabal-version: >= 1.8
+License: MIT
+Author: Oliver Charles
+Build-Type: Simple
+
+Flag development
+  Description: Whether to build the server in development (interpreted) mode
+  Default: False
+
+Executable musicbrainz-ws2
+  Hs-Source-Dirs: src
+  Main-Is: Main.hs
+  Build-Depends:
+    base,
+    bytestring,
+    containers,
+    data-lens-template,
+    mtl,
+    musicbrainz-data,
+    snap,
+    snap-core,
+    snap-server,
+    snaplet-postgresql-simple,
+    text,
+    transformers,
+    xml-conduit
+  if flag(development)
+    cpp-options: -DDEVELOPMENT
+    build-depends: snap-loader-dynamic == 0.9.*
+    -- In development mode, speed is already going to suffer, so skip
+    -- the fancy optimization flags.  Additionally, disable all
+    -- warnings.  The hint library doesn't give an option to execute
+    -- compiled code when there were also warnings, so disabling
+    -- warnings allows quicker workflow.
+    ghc-options: -threaded -w
+  else
+    build-depends: snap-loader-static == 0.9.*
+    ghc-options: -threaded -Wall -fwarn-tabs -funbox-strict-fields -O2
+                 -fno-warn-orphans -fno-warn-unused-do-bind -Werror

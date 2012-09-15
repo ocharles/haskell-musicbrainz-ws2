@@ -1,0 +1,23 @@
+Name: musicbrainz-data
+Version: 0.1
+Cabal-version: >= 1.8
+License: MIT
+Author: Oliver Charles
+Build-Type: Simple
+
+Library
+  Hs-Source-Dirs: src
+  Build-Depends:
+    base,
+    containers,
+    convertible,
+    HDBC-postgresql,
+    HDBC,
+    mtl,
+    text,
+    transformers,
+    xml-hamlet,
+    uuid
+  Exposed-Modules:
+    MusicBrainz.Data.Artist
+    MusicBrainz.Types

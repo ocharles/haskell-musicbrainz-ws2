@@ -1,0 +1,6 @@
+*.o
+.shelly
+*.hi
+musicbrainz-ws2/dist
+musicbrainz-log/dist
+musicbrainz-data/dist
