@@ -1,6 +1,6 @@
 {-# LANGUAGE TupleSections #-}
 {-# LANGUAGE OverloadedStrings #-}
-module MusicBrainz.XML (release, render) where
+module MusicBrainz.XML (renderError, release, render) where
 
 import Control.Monad.Trans.Writer
 import Data.Map (empty)
@@ -9,6 +9,20 @@ import Snap.Core (MonadSnap, writeLazyText)
 import Text.XML
 
 import MusicBrainz.Types
+
+--------------------------------------------------------------------------------
+renderError :: MonadSnap m => Text -> m ()
+renderError e = writeLazyText $ renderText def wrapError
+  where wrapError =
+          Document (Prologue [] Nothing [])
+                   (Element "error" empty [errorNode, moreInfo])
+                   []
+        textNode t = NodeElement $ Element "text" empty [ NodeContent t ]
+        errorNode = textNode e
+        moreInfo = textNode "For usage, please see: http://musicbrainz.org/development/mmd"
+
+
+--------------------------------------------------------------------------------
 
 release :: ( Entity Release
            , Maybe (Entity ReleaseStatus)
